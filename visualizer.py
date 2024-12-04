@@ -4,7 +4,7 @@ from graphviz import Digraph
 
 def get_commits(repo_path, date_filter=None):
     # Формируем команду git log
-    git_log_cmd = ["git", "-C", repo_path, "log", "--pretty=format:%H|%P|%ai|%s"]
+    git_log_cmd = ["git", "-C", repo_path, "log", "--all", "--pretty=format:%H|%P|%ai|%s"]
     if date_filter:
         git_log_cmd.append(f"--before={date_filter}")
     
@@ -23,12 +23,32 @@ def get_commits(repo_path, date_filter=None):
     
     return commits
 
-def build_graph(commits):
+def get_current_commit(repo_path):
+    """Получение текущего коммита (HEAD)."""
+    result = subprocess.run(
+        ["git", "-C", repo_path, "rev-parse", "HEAD"],
+        stdout=subprocess.PIPE,
+        text=True,
+        check=True
+    )
+    return result.stdout.strip()
+
+def build_graph(commits, current_commit=None):
+    """Создание графа зависимостей с подсветкой текущего коммита."""
     graph = Digraph(format="png")
     commits = sorted(commits, key=lambda c: c["date"])
     
     for commit in commits:
-        graph.node(commit["hash"], f'{commit["hash"][:7]}\n{commit["date"]}\n{commit["message"]}')
+        is_current = (commit["hash"] == current_commit)
+        color = "red" if is_current else "black"
+        style = "filled" if is_current else "solid"
+        
+        graph.node(
+            commit["hash"],
+            f'{commit["hash"][:7]}\n{commit["date"]}\n{commit["message"]}',
+            color=color,
+            style=style
+        )
         for parent in commit["parents"]:
             graph.edge(parent, commit["hash"])
     
@@ -45,8 +65,11 @@ def main():
 
     # Получаем коммиты
     commits = get_commits(args.repo_path, args.date)
-    # Создаём граф
-    graph = build_graph(commits)
+    current_commit = get_current_commit(args.repo_path)
+
+    # Создаём граф с подсветкой текущего коммита
+    graph = build_graph(commits, current_commit)
+
     # Сохраняем результат
     graph.render(args.output_path, cleanup=True)
 
