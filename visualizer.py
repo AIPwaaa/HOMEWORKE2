@@ -70,6 +70,10 @@ def main():
     # Создаём граф с подсветкой текущего коммита
     graph = build_graph(commits, current_commit)
 
+    # Выводим граф на экран
+    print("Graphviz DOT representation:")
+    print(graph.source)
+
     # Сохраняем результат
     graph.render(args.output_path, cleanup=True)
 
