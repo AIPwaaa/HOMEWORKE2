@@ -92,3 +92,5 @@ path/to/outputfile - путь к файлу, куда будет записан 
 Все 4 теста выполнены успешно
 
 ![Снимок экрана 2024-12-10 184803](https://github.com/user-attachments/assets/1ef53e71-292a-423d-b734-3d0a91c21960)
+
+URL-адрес репозитория: https://github.com/AIPwaaa/HOMEWORKE2
