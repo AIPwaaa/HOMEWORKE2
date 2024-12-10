@@ -39,6 +39,10 @@
 
 Получает то, что вернула функция build_graph и записывает это в .dot файл.
 
+4. Функция main:
+
+Функция main является связующей функцией, с помощью которой все три вышеупомянутые функции работают вместе
+
 3. Описание команд для сборки проекта.
 
 Скрипт запуска в командной строке: python /path/to/visualizer.py --repo-path /path/to/repo --output-path path/to/outputfile --date 2022-02-22
@@ -52,4 +56,36 @@
 path/to/outputfile - путь к файлу, куда будет записан граф
 
 2022-02-22 - дата, до которой надо выводить коммиты
+
+4. Примеры использования
+
+![Снимок экрана 2024-12-10 192657](https://github.com/user-attachments/assets/938e2b3f-11e0-47fb-a901-91c7fa7d207b)
+
+Вывод результата в консоль
+
+![Снимок экрана 2024-12-10 192851](https://github.com/user-attachments/assets/8d54eb80-e625-4bf2-84a4-a93d84d7524d)
+
+Вывод результата в graph.dot файл
+
+![graph](https://github.com/user-attachments/assets/4b405565-84cb-4ef0-84c0-de8656f6aae8)
+
+Преобразования .dot файла в картинку с помощью graphviz
+
+5. Результаты прогонов тестов
+
+Тестирование функции parse_git_repo:
+
+![Снимок экрана 2024-12-10 193102](https://github.com/user-attachments/assets/1873a635-8542-4833-b335-3a420202adcd)
+
+Тестирование функции build_graph:
+
+![Снимок экрана 2024-12-10 193110](https://github.com/user-attachments/assets/54b595fc-f6b2-4c77-9627-7482c5e5bcd9)
+
+Тестирование функции save_dot_file:
+
+![Снимок экрана 2024-12-10 193346](https://github.com/user-attachments/assets/39fc4b53-a045-4b60-a1ee-0758c3575457)
+
+Тестирование функции main:
+
+![Снимок экрана 2024-12-10 193132](https://github.com/user-attachments/assets/6de4bb89-5737-4bef-9c57-36aa2b7f3a61)
 
